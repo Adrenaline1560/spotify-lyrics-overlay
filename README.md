@@ -26,7 +26,9 @@ Build a double-clickable `.app` bundle:
 ```bash
 git clone https://github.com/Adrenaline1560/spotify-lyrics-overlay.git
 cd spotify-lyrics-overlay
-pip3.12 install -r requirements.txt py2app
+python3.12 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt py2app
 python3.12 setup.py py2app
 ```
 
@@ -39,7 +41,9 @@ The app is created at `dist/Spotify Lyrics.app`. Drag it to your **Applications*
 ```bash
 git clone https://github.com/Adrenaline1560/spotify-lyrics-overlay.git
 cd spotify-lyrics-overlay
-pip3.12 install -r requirements.txt
+python3.12 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 python3.12 lyrics_overlay.py
 ```
 
