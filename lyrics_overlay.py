@@ -56,27 +56,36 @@ def _pick_font(root: tk.Tk) -> str:
 
 # ─── AppleScript ──────────────────────────────────────────────────────────────
 
+_SEP = "\x1f"  # ASCII unit separator — safe delimiter that never appears in track metadata
+
 _QUERY = """
 tell application "Spotify"
     if player state is stopped then return "stopped"
     set t to current track
+    set d to (ASCII character 31)
     try
         set tArt to artwork url of t
     on error
         set tArt to ""
     end try
-    return (name of t) & "|" & (artist of t) & "|" & (duration of t) & "|" & (player position) & "|" & (player state as string) & "|" & tArt
+    return (name of t) & d & (artist of t) & d & (duration of t) & d & (player position) & d & (player state as string) & d & tArt
 end tell
 """
+
+_LOG = os.path.expanduser("~/spotify_lyrics_debug.log")
 
 def get_spotify_state() -> dict | None:
     try:
         r = subprocess.run(["osascript", "-e", _QUERY],
-                           capture_output=True, text=True, timeout=4)
+                           capture_output=True, timeout=4)
+        r.stdout = r.stdout.decode("utf-8", errors="replace")
+        r.stderr = r.stderr.decode("utf-8", errors="replace")
         out = r.stdout.strip()
+        with open(_LOG, "a", encoding="utf-8") as f:
+            f.write(f"rc={r.returncode} out={repr(out)} err={repr(r.stderr.strip())}\n")
         if r.returncode != 0 or not out or out == "stopped":
             return None
-        p = out.split("|")
+        p = out.split(_SEP, 5)
         if len(p) < 5:
             return None
         return {
@@ -85,7 +94,9 @@ def get_spotify_state() -> dict | None:
             "position":    float(p[3]),   "state":   p[4],
             "artwork_url": p[5].strip() if len(p) > 5 else "",
         }
-    except Exception:
+    except Exception as e:
+        with open(_LOG, "a", encoding="utf-8") as f:
+            f.write(f"exception: {e}\n")
         return None
 
 
