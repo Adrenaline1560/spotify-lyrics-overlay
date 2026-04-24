@@ -19,24 +19,22 @@ A minimal macOS desktop overlay that shows time-synced lyrics for the currently 
 - [Spotify desktop app](https://www.spotify.com/download/mac/) (not the web player)
 - Internet connection (for lyrics lookup)
 
-## Option A — Run as a native macOS app (recommended)
-
-Build a double-clickable `.app` bundle:
+## Quickstart — double-click to run (recommended)
 
 ```bash
 git clone https://github.com/Adrenaline1560/spotify-lyrics-overlay.git
 cd spotify-lyrics-overlay
-python3.12 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt py2app
-python3.12 setup.py py2app
 ```
 
-The app is created at `dist/Spotify Lyrics.app`. Drag it to your **Applications** folder and double-click to launch.
+Then double-click **`run.command`** in Finder.
 
-> On first launch, macOS will ask for **Automation** permission so the app can talk to Spotify — click **OK**.
+On first launch it automatically sets up a virtual environment and installs dependencies. Subsequent launches start instantly.
 
-## Option B — Run directly with Python
+> macOS will ask for **Automation** permission on first run so the app can talk to Spotify — click **OK**.
+>
+> If macOS blocks the script: right-click `run.command` → **Open** → **Open**.
+
+## Alternative — run from Terminal
 
 ```bash
 git clone https://github.com/Adrenaline1560/spotify-lyrics-overlay.git
@@ -46,8 +44,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 python3.12 lyrics_overlay.py
 ```
-
-On first run, macOS will ask for **Automation** permission — click **OK**.
 
 ## How it works
 
