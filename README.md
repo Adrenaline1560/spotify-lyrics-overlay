@@ -24,7 +24,7 @@ A minimal macOS desktop overlay that shows time-synced lyrics for the currently 
 Build a double-clickable `.app` bundle:
 
 ```bash
-git clone https://github.com/adrianlim/spotify-lyrics-overlay.git
+git clone https://github.com/Adrenaline1560/spotify-lyrics-overlay.git
 cd spotify-lyrics-overlay
 pip3 install -r requirements.txt py2app
 python3 setup.py py2app
@@ -37,7 +37,7 @@ The app is created at `dist/Spotify Lyrics.app`. Drag it to your **Applications*
 ## Option B — Run directly with Python
 
 ```bash
-git clone https://github.com/adrianlim/spotify-lyrics-overlay.git
+git clone https://github.com/Adrenaline1560/spotify-lyrics-overlay.git
 cd spotify-lyrics-overlay
 pip3 install -r requirements.txt
 python3 lyrics_overlay.py
